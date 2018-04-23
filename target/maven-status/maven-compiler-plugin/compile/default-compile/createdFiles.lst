@@ -1,0 +1,7 @@
+com\example\demo\DemoApplication.class
+com\tracker\test\WebAppInitializer.class
+com\tracker\test\ApplicationTester.class
+com\tracker\controller\AddWorkoutController.class
+com\tracker\model\AddWorkoutModel.class
+com\tracker\entity\WorkoutCollectionEntity.class
+com\tracker\model\AddCategoryModel.class
