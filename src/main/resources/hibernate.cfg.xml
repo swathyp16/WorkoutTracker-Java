@@ -16,7 +16,7 @@
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
     
-   <mapping resource="workoutTracker.hbm.xml"/>
+   <mapping class="com.tracker.entity.WorkoutCollectionEntity"/>
    <!-- <mapping resource="workoutcategory.hbm.xml"/> -->
    <mapping class="com.tracker.entity.CategoryEntity"/>   
     </session-factory>

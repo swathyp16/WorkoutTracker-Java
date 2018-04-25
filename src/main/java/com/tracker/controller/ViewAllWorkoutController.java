@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tracker.model.AddWorkoutModel;
+import com.tracker.model.CategoryModel;
 import com.tracker.service.WorkoutServiceImpl;
 
 @RestController
-@RequestMapping("/viewWorkout")
 public class ViewAllWorkoutController {
 
 	@Autowired
 	WorkoutServiceImpl workoutService;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@RequestMapping(value="/all",method=RequestMethod.GET)
+	@RequestMapping(value="/viewAllWorkout",method=RequestMethod.GET)
 	public List<AddWorkoutModel> viewAllWorkout() {
 		System.out.println("***********************************************");
 		System.out.println("Inside VIEW ALL WORKOUT");
@@ -33,6 +33,38 @@ public class ViewAllWorkoutController {
 			e.printStackTrace();
 		}
 		return workoutsList;
+		
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="/deleteWorkout",method=RequestMethod.POST)
+	public String deleteCategory(@RequestBody AddWorkoutModel workoutModel) {
+		System.out.println("***********************************************");
+		System.out.println("Inside DELETE WORKOUT" + workoutModel.toString());
+		System.out.println("***********************************************");
+		String respStr = null;
+		try {
+			respStr = workoutService.deleteWorkout(workoutModel.getWorkoutTitle());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return respStr;
+		
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="/editWorkout",method=RequestMethod.POST)
+	public AddWorkoutModel editWorkout(@RequestBody String workoutId) {
+		System.out.println("***********************************************");
+		System.out.println("Inside EDIT WORKOUT" + workoutId);
+		System.out.println("***********************************************");
+		AddWorkoutModel editModel = new AddWorkoutModel();
+		try {
+			editModel = workoutService.editWorkout(workoutId);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return editModel;
 		
 	}
 }
