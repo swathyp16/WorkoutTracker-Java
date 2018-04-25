@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
        
 <hibernate-mapping>
-	<class name="com.tracker.model.AddCategoryModel" table="workout_category">
+	<class name="com.tracker.model.CategoryModel" table="workout_category">
 	<id name="categoryId" column="category_id">
 		<generator class="assigned"></generator>
 	</id>

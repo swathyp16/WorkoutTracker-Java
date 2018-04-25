@@ -17,6 +17,7 @@
     <property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
     
    <mapping resource="workoutTracker.hbm.xml"/>
-   <mapping resource="workoutcategory.hbm.xml"/>
+   <!-- <mapping resource="workoutcategory.hbm.xml"/> -->
+   <mapping class="com.tracker.entity.CategoryEntity"/>   
     </session-factory>
 </hibernate-configuration>

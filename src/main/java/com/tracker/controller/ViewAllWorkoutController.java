@@ -1,44 +1,38 @@
 package com.tracker.controller;
 
-
-import java.awt.PageAttributes.MediaType;
-
-import javax.xml.ws.RequestWrapper;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tracker.model.AddWorkoutModel;
 import com.tracker.service.WorkoutServiceImpl;
 
-
 @RestController
-@RequestMapping("/createWorkout")
-public class AddWorkoutController {
-	
+@RequestMapping("/viewWorkout")
+public class ViewAllWorkoutController {
+
 	@Autowired
 	WorkoutServiceImpl workoutService;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@RequestMapping(value="/all",method=RequestMethod.POST)
-	public String createWorkout(@RequestBody AddWorkoutModel addWorkoutModel) {
+	@RequestMapping(value="/all",method=RequestMethod.GET)
+	public List<AddWorkoutModel> viewAllWorkout() {
 		System.out.println("***********************************************");
-		System.out.println(addWorkoutModel.toString());
+		System.out.println("Inside VIEW ALL WORKOUT");
 		System.out.println("***********************************************");
-		String responseString = null;
+		List<AddWorkoutModel> workoutsList = new ArrayList<AddWorkoutModel>() ;
 		try {
-			responseString = workoutService.addWorkout(addWorkoutModel);
+			workoutsList = workoutService.viewAllWorkouts();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return responseString;
+		return workoutsList;
 		
 	}
 }

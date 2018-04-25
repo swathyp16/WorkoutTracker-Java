@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableAutoConfiguration
 //@EnableWebMvc
-@ComponentScan({"com.tracker.controller"})
+@ComponentScan({"com.tracker"})
 @SpringBootApplication
 public class ApplicationTester{
 	

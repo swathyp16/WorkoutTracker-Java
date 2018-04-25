@@ -2,21 +2,21 @@ package com.tracker.model;
 
 public class AddWorkoutModel {
 
-	private int workoutId;
+	private String workoutId;
 	
 	private String workoutTitle;
 	
 	private String workoutNote;
 	
-	private float caloriesBurnt;
+	private String caloriesBurnt;
 	
-	private int categoryId;
+	private String categoryId;
 
-	public int getWorkoutId() {
+	public String getWorkoutId() {
 		return workoutId;
 	}
 
-	public void setWorkoutId(int workoutId) {
+	public void setWorkoutId(String workoutId) {
 		this.workoutId = workoutId;
 	}
 
@@ -36,19 +36,19 @@ public class AddWorkoutModel {
 		this.workoutNote = workoutNote;
 	}
 
-	public float getCaloriesBurnt() {
+	public String getCaloriesBurnt() {
 		return caloriesBurnt;
 	}
 
-	public void setCaloriesBurnt(float caloriesBurnt) {
+	public void setCaloriesBurnt(String caloriesBurnt) {
 		this.caloriesBurnt = caloriesBurnt;
 	}
 
-	public int getCategoryId() {
+	public String getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(int categoryId) {
+	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
 	}
 
