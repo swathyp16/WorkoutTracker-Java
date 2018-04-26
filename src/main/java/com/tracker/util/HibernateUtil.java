@@ -14,6 +14,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import com.tracker.constants.QueryConstants;
 import com.tracker.entity.CategoryEntity;
+import com.tracker.entity.WorkoutCollectionEntity;
 import com.tracker.model.AddWorkoutModel;
 import com.tracker.model.CategoryModel;
 
@@ -21,51 +22,15 @@ import com.tracker.model.CategoryModel;
 
 public class HibernateUtil {
 	
-/*	public static void main(String[] args) {
-		
-		/*AddWorkoutModel model = new AddWorkoutModel();
-		model.setWorkoutId(1);
-		model.setWorkoutTitle("Running");
-		model.setCategoryId(2);
-		model.setWorkoutNote("Fast running 10kms");
-		model.setCaloriesBurnt(25);
-		SessionFactory sessionFactory = null;
-		
-		Transaction tx = null;
-		try {
-			sessionFactory = HibernateUtil.getSessionFactory();
-			session = sessionFactory.getCurrentSession();
-			System.out.println("Session created");
-			tx = session.beginTransaction();
-			session.save(model);
-			tx.commit();
-			System.out.println("Workout title="+ model.getWorkoutTitle());
-		}catch(Exception e) {
-			System.out.println("Exception occured");
-		}finally {
-			if(sessionFactory!= null && !sessionFactory.isClosed()) {
-				sessionFactory.close();
-			}
-		}*/
-
-		//AddWorkoutModel model = new AddWorkoutModel();
-		//model.setWorkoutId(1);
-		//model.setWorkoutTitle("Running");
-		//model.setCategoryId(2);
-		//model.setWorkoutNote("Fast running 10kms");
-		//model.setCaloriesBurnt(25.3f);
-		//HibernateUtil.insertInfo(model);
-		
-	//}
 	private static SessionFactory sessionFactory;
 	
-	public static void insertInfo(AddWorkoutModel model) {		
+	public static void insertInfo(WorkoutCollectionEntity collectionEntity) {		
 		Configuration conf = new Configuration();
 		conf.configure("/hibernate.cfg.xml");
 		sessionFactory = conf.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		session.save(model);
+		session.save(collectionEntity);
 		tx.commit();
 		session.close();
 		sessionFactory.close();
@@ -83,11 +48,11 @@ public class HibernateUtil {
 		List<Object[]> rows = query.list();
 		for(Object[] row : rows){
 			addWorkoutModel = new AddWorkoutModel();
-			addWorkoutModel.setWorkoutId(row[0].toString());
-			addWorkoutModel.setWorkoutTitle(row[1].toString());
-			addWorkoutModel.setWorkoutNote(row[2].toString());
-			addWorkoutModel.setCaloriesBurnt(row[3].toString());
-			addWorkoutModel.setCategoryId(row[4].toString());
+			addWorkoutModel.setWorkoutTitle(row[0].toString());
+			addWorkoutModel.setWorkoutNote(row[1].toString());
+			addWorkoutModel.setCaloriesBurnt(row[2].toString());
+			addWorkoutModel.setCategoryId(row[3].toString());
+			addWorkoutModel.setWorkoutId(row[4].toString());
 			System.out.println("output: " + row[0].toString() +","+row[1].toString()+","+row[2].toString());
 			workoutsList.add(addWorkoutModel);
 		}
@@ -107,7 +72,7 @@ public class HibernateUtil {
 		List<Object[]> rows = query.list();
 		for(Object[] row : rows){
 			categoryModel = new CategoryModel();
-			//categoryModel.setCategoryId(row[0].toString());
+			categoryModel.setCategoryId(row[0].toString());
 			categoryModel.setCategoryName(row[1].toString());
 			categoryList.add(categoryModel);
 		}
@@ -140,6 +105,49 @@ public class HibernateUtil {
 		tx.commit();
 		session.close();
 		sessionFactory.close();
+		
+	}
+	
+	public static void deleteWorkout(String workoutTitle) {
+		System.out.println("<-----------workout NAME ---------->" + workoutTitle);
+		Configuration conf = new Configuration();
+		conf.configure("/hibernate.cfg.xml");
+		sessionFactory = conf.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Query q = session.createQuery("delete from WorkoutCollectionEntity where workout_title ='"+workoutTitle+"'");
+		q.executeUpdate();
+		tx.commit();
+		session.close();
+		sessionFactory.close();
+		
+	}
+	
+	public static List<AddWorkoutModel> editWorkout(String workoutId) {
+		System.out.println("<-----------workout ID ---------->" + workoutId);
+		Configuration conf = new Configuration();
+		conf.configure("/hibernate.cfg.xml");
+		sessionFactory = conf.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		SQLQuery query = session.createSQLQuery("select *  from workout_collection where workout_id ="+workoutId.toString());
+		List<Object[]> rows = query.list();
+		AddWorkoutModel editWorkoutModel = null;
+		List<AddWorkoutModel> editWorkoutList = new ArrayList<AddWorkoutModel>();
+		for(Object[] row : rows){
+			editWorkoutModel = new AddWorkoutModel();
+			editWorkoutModel.setWorkoutTitle(row[0].toString());
+			editWorkoutModel.setWorkoutNote(row[1].toString());
+			editWorkoutModel.setCaloriesBurnt(row[2].toString());
+			editWorkoutModel.setCategoryId(row[3].toString());
+			editWorkoutModel.setWorkoutId(row[4].toString());
+			editWorkoutList.add(editWorkoutModel);
+		}
+		System.out.println("Edit details : "+ editWorkoutModel.toString());
+		tx.commit();
+		session.close();
+		sessionFactory.close();
+		return editWorkoutList;
 		
 	}
 

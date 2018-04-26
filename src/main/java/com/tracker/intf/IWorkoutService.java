@@ -10,4 +10,8 @@ public interface IWorkoutService {
 	
 	public List<AddWorkoutModel> viewAllWorkouts();
 	
+	public String deleteWorkout(String workoutTitle);
+	
+	public List<AddWorkoutModel> editWorkout(String workoutId);
+	
 }
