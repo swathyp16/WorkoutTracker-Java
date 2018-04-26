@@ -123,7 +123,11 @@ public class HibernateUtil {
 		
 	}
 	
+<<<<<<< HEAD
 	public static List<AddWorkoutModel> editWorkout(String workoutId) {
+=======
+	public static AddWorkoutModel editWorkout(String workoutId) {
+>>>>>>> 90497c4e7b3df48beacf17c33a55f2bd2917e617
 		System.out.println("<-----------workout ID ---------->" + workoutId);
 		Configuration conf = new Configuration();
 		conf.configure("/hibernate.cfg.xml");
@@ -133,7 +137,10 @@ public class HibernateUtil {
 		SQLQuery query = session.createSQLQuery("select *  from workout_collection where workout_id ="+workoutId.toString());
 		List<Object[]> rows = query.list();
 		AddWorkoutModel editWorkoutModel = null;
+<<<<<<< HEAD
 		List<AddWorkoutModel> editWorkoutList = new ArrayList<AddWorkoutModel>();
+=======
+>>>>>>> 90497c4e7b3df48beacf17c33a55f2bd2917e617
 		for(Object[] row : rows){
 			editWorkoutModel = new AddWorkoutModel();
 			editWorkoutModel.setWorkoutTitle(row[0].toString());
@@ -141,13 +148,20 @@ public class HibernateUtil {
 			editWorkoutModel.setCaloriesBurnt(row[2].toString());
 			editWorkoutModel.setCategoryId(row[3].toString());
 			editWorkoutModel.setWorkoutId(row[4].toString());
+<<<<<<< HEAD
 			editWorkoutList.add(editWorkoutModel);
+=======
+>>>>>>> 90497c4e7b3df48beacf17c33a55f2bd2917e617
 		}
 		System.out.println("Edit details : "+ editWorkoutModel.toString());
 		tx.commit();
 		session.close();
 		sessionFactory.close();
+<<<<<<< HEAD
 		return editWorkoutList;
+=======
+		return editWorkoutModel;
+>>>>>>> 90497c4e7b3df48beacf17c33a55f2bd2917e617
 		
 	}
 

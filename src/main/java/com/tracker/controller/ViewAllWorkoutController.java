@@ -54,12 +54,21 @@ public class ViewAllWorkoutController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
+<<<<<<< HEAD
 	@RequestMapping(value="/editWorkout/{workoutId}",method=RequestMethod.GET)
 	public List<AddWorkoutModel> editWorkout(@PathVariable String workoutId) {
 		System.out.println("***********************************************");
 		System.out.println("Inside EDIT WORKOUT" + workoutId);
 		System.out.println("***********************************************");
 		List<AddWorkoutModel> editModel = new ArrayList<AddWorkoutModel>();
+=======
+	@RequestMapping(value="/editWorkout",method=RequestMethod.POST)
+	public AddWorkoutModel editWorkout(@RequestBody String workoutId) {
+		System.out.println("***********************************************");
+		System.out.println("Inside EDIT WORKOUT" + workoutId);
+		System.out.println("***********************************************");
+		AddWorkoutModel editModel = new AddWorkoutModel();
+>>>>>>> 90497c4e7b3df48beacf17c33a55f2bd2917e617
 		try {
 			editModel = workoutService.editWorkout(workoutId);
 		}catch(Exception e) {

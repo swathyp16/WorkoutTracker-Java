@@ -40,8 +40,13 @@ public class WorkoutServiceImpl implements IWorkoutService{
 	}
 	
 	@Override
+<<<<<<< HEAD
 	public List<AddWorkoutModel> editWorkout(String workoutId) {
 		List<AddWorkoutModel> editModel = HibernateUtil.editWorkout(workoutId);
+=======
+	public AddWorkoutModel editWorkout(String workoutId) {
+		AddWorkoutModel editModel = HibernateUtil.editWorkout(workoutId);
+>>>>>>> 90497c4e7b3df48beacf17c33a55f2bd2917e617
 		return editModel;
 	}
 
