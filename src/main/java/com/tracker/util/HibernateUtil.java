@@ -8,9 +8,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.loader.collection.CollectionJoinWalker;
 import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
-//import org.hibernate.service.ServiceRegistryBuilder;
+import org.springframework.util.CollectionUtils;
 
 import com.tracker.constants.QueryConstants;
 import com.tracker.entity.CategoryEntity;
@@ -30,7 +31,19 @@ public class HibernateUtil {
 		sessionFactory = conf.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		session.save(collectionEntity);
+		SQLQuery query = session.createSQLQuery("select *  from workout_collection where workout_id ="+collectionEntity.getWorkout_id());
+		List<Object[]> rows = query.list();
+		System.out.println("rows: " + rows.size());
+		if(!rows.isEmpty() && rows.size()>0) {
+			System.out.println("*********inisde loop 1 **********");
+			SQLQuery updateQuery = session.createSQLQuery("UPDATE workout_collection SET workout_title ='"+ collectionEntity.getWorkoutTitle() +
+					"' , workout_note = '" + collectionEntity.getWorkoutNote()+ "' , category_id = " + collectionEntity.getCategoryId()+" where workout_id ="+ collectionEntity.getWorkout_id());
+			updateQuery.executeUpdate();
+		}else {
+			System.out.println("*********inisde loop 2 **********");
+			session.save(collectionEntity);
+		}
+		
 		tx.commit();
 		session.close();
 		sessionFactory.close();
@@ -123,11 +136,7 @@ public class HibernateUtil {
 		
 	}
 	
-<<<<<<< HEAD
 	public static List<AddWorkoutModel> editWorkout(String workoutId) {
-=======
-	public static AddWorkoutModel editWorkout(String workoutId) {
->>>>>>> 90497c4e7b3df48beacf17c33a55f2bd2917e617
 		System.out.println("<-----------workout ID ---------->" + workoutId);
 		Configuration conf = new Configuration();
 		conf.configure("/hibernate.cfg.xml");
@@ -137,10 +146,7 @@ public class HibernateUtil {
 		SQLQuery query = session.createSQLQuery("select *  from workout_collection where workout_id ="+workoutId.toString());
 		List<Object[]> rows = query.list();
 		AddWorkoutModel editWorkoutModel = null;
-<<<<<<< HEAD
 		List<AddWorkoutModel> editWorkoutList = new ArrayList<AddWorkoutModel>();
-=======
->>>>>>> 90497c4e7b3df48beacf17c33a55f2bd2917e617
 		for(Object[] row : rows){
 			editWorkoutModel = new AddWorkoutModel();
 			editWorkoutModel.setWorkoutTitle(row[0].toString());
@@ -148,20 +154,13 @@ public class HibernateUtil {
 			editWorkoutModel.setCaloriesBurnt(row[2].toString());
 			editWorkoutModel.setCategoryId(row[3].toString());
 			editWorkoutModel.setWorkoutId(row[4].toString());
-<<<<<<< HEAD
 			editWorkoutList.add(editWorkoutModel);
-=======
->>>>>>> 90497c4e7b3df48beacf17c33a55f2bd2917e617
 		}
 		System.out.println("Edit details : "+ editWorkoutModel.toString());
 		tx.commit();
 		session.close();
 		sessionFactory.close();
-<<<<<<< HEAD
 		return editWorkoutList;
-=======
-		return editWorkoutModel;
->>>>>>> 90497c4e7b3df48beacf17c33a55f2bd2917e617
 		
 	}
 
