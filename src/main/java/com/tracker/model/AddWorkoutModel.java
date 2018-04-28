@@ -11,6 +11,14 @@ public class AddWorkoutModel {
 	private String caloriesBurnt;
 	
 	private String categoryId;
+	
+	public String startDate;
+	
+	public String startTime;
+	
+	public String endDate;
+	
+	public String endTime;
 
 	public String getWorkoutId() {
 		return workoutId;
@@ -52,11 +60,46 @@ public class AddWorkoutModel {
 		this.categoryId = categoryId;
 	}
 
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
 	@Override
 	public String toString() {
 		return "AddWorkoutModel [workoutId=" + workoutId + ", workoutTitle=" + workoutTitle + ", workoutNote="
-				+ workoutNote + ", caloriesBurnt=" + caloriesBurnt + ", categoryId=" + categoryId + "]";
+				+ workoutNote + ", caloriesBurnt=" + caloriesBurnt + ", categoryId=" + categoryId + ", startDate="
+				+ startDate + ", startTime=" + startTime + ", endDate=" + endDate + ", endTime=" + endTime + "]";
 	}
+
+	
 
 	
 	

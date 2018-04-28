@@ -18,6 +18,7 @@
     
    <mapping class="com.tracker.entity.WorkoutCollectionEntity"/>
    <!-- <mapping resource="workoutcategory.hbm.xml"/> -->
-   <mapping class="com.tracker.entity.CategoryEntity"/>   
+   <mapping class="com.tracker.entity.CategoryEntity"/> 
+    <mapping class="com.tracker.entity.WorkoutActiveEntity"/>   
     </session-factory>
 </hibernate-configuration>

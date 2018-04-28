@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tracker.model.AddWorkoutModel;
 import com.tracker.model.CategoryModel;
+import com.tracker.model.StartEndWorkoutModel;
 import com.tracker.service.WorkoutServiceImpl;
 
 @RestController
@@ -49,8 +50,7 @@ public class ViewAllWorkoutController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return respStr;
-		
+		return respStr;		
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
@@ -65,7 +65,22 @@ public class ViewAllWorkoutController {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return editModel;
-		
+		return editModel;		
 	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@RequestMapping(value="/startWorkout",method=RequestMethod.POST)
+	public String startWorkout(@RequestBody AddWorkoutModel startWorkoutModel) {
+		System.out.println("***********************************************");
+		System.out.println("Inside START WORKOUT" + startWorkoutModel.toString());
+		System.out.println("***********************************************");
+		String respStr = null;
+		try {
+			respStr = workoutService.startWorkout(startWorkoutModel);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return respStr;		
+	}
+	
 }
