@@ -165,26 +165,27 @@ public class HibernateUtil {
 		return editWorkoutList;		
 	}
 	
-	public static void startWorkout(WorkoutActiveEntity workoutActiveEntity) {
+	public static void startWorkout(WorkoutActiveEntity workoutActiveEntity,boolean isStartWorkout) {
 		System.out.println("<-----------WorkoutActiveEntity ---------->" + workoutActiveEntity);
 		Configuration conf = new Configuration();
 		conf.configure("/hibernate.cfg.xml");
 		sessionFactory = conf.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		SQLQuery query = session.createSQLQuery("select *  from workout_active where workout_id ="+workoutActiveEntity.getWorkout_id());
-		List<Object[]> rows = query.list();
-		SQLQuery updateQuery = null;
-		if(!rows.isEmpty() && rows.size()>0) {
-			for(Object[] row : rows){
-			if(row[5].equals(CommonConstants.STARTED_STATUS)){
-				updateQuery = session.createSQLQuery("UPDATE workout_active SET end_date ='"+ workoutActiveEntity.getEndDate() +
-						"' , end_time = '" + workoutActiveEntity.getEndTime() + "' , status = 1" + " where workout_id ="+ workoutActiveEntity.getWorkout_id());
-			}
-			}
-			updateQuery.executeUpdate();
-		}else {
+		if(isStartWorkout) {
 			session.save(workoutActiveEntity);
+		}else {			
+			/*SQLQuery updateQuery = session.createSQLQuery("UPDATE workout_active SET end_date = "+ workoutActiveEntity.getEndDate() +
+					" , end_time = " + workoutActiveEntity.getEndTime() + " , status = 1" + " where workout_id ="+ workoutActiveEntity.getWorkout_id());		
+		updateQuery.executeUpdate();*/
+			String sql = "update workout_active set end_date = :endDt , end_time = :endTime , status = :status,comment = :comment  where  workout_id = :workId";
+			SQLQuery query = session.createSQLQuery(sql);
+			query.setDate("endDt", workoutActiveEntity.getEndDate());
+			query.setTime("endTime", workoutActiveEntity.getEndTime());
+			query.setBoolean("status", Boolean.TRUE);
+			query.setString("comment", CommonConstants.ENDED_STATUS);
+			query.setInteger("workId", workoutActiveEntity.getWorkout_id());
+			query.executeUpdate();
 		}		
 		tx.commit();
 		session.close();

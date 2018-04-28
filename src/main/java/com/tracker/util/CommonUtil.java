@@ -15,6 +15,7 @@ public class CommonUtil {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
+		System.out.println("formattedDate: " + formattedDate);
 		 return formattedDate;
 	}
 	

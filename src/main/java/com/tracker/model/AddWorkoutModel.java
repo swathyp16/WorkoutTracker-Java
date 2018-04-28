@@ -19,6 +19,17 @@ public class AddWorkoutModel {
 	public String endDate;
 	
 	public String endTime;
+	
+	public boolean startWorkoutFlag;	
+	
+
+	public boolean isStartWorkoutFlag() {
+		return startWorkoutFlag;
+	}
+
+	public void setStartWorkoutFlag(boolean startWorkoutFlag) {
+		this.startWorkoutFlag = startWorkoutFlag;
+	}
 
 	public String getWorkoutId() {
 		return workoutId;
@@ -96,10 +107,9 @@ public class AddWorkoutModel {
 	public String toString() {
 		return "AddWorkoutModel [workoutId=" + workoutId + ", workoutTitle=" + workoutTitle + ", workoutNote="
 				+ workoutNote + ", caloriesBurnt=" + caloriesBurnt + ", categoryId=" + categoryId + ", startDate="
-				+ startDate + ", startTime=" + startTime + ", endDate=" + endDate + ", endTime=" + endTime + "]";
+				+ startDate + ", startTime=" + startTime + ", endDate=" + endDate + ", endTime=" + endTime
+				+ ", startWorkoutFlag=" + startWorkoutFlag + "]";
 	}
-
-	
 
 	
 	
