@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.tracker.Exception.BusinessException;
 import com.tracker.constants.CommonConstants;
 import com.tracker.entity.WorkoutActiveEntity;
 import com.tracker.entity.WorkoutCollectionEntity;
@@ -18,15 +19,20 @@ import com.tracker.util.HibernateUtil;
 public class WorkoutServiceImpl implements IWorkoutService{
 	
 	@Override
-	public String addWorkout(AddWorkoutModel addWorkoutModel) {
+	public String addWorkout(AddWorkoutModel addWorkoutModel) throws BusinessException {
 		WorkoutCollectionEntity collectionEntity = new WorkoutCollectionEntity();
-		if(addWorkoutModel.getWorkoutId() != null) {
-			collectionEntity.setWorkout_id(Integer.parseInt(addWorkoutModel.getWorkoutId()));
+		try {
+			if(addWorkoutModel.getWorkoutId() != null) {
+				collectionEntity.setWorkout_id(Integer.parseInt(addWorkoutModel.getWorkoutId()));
+			}		
+			collectionEntity.setCategoryId(Integer.parseInt(addWorkoutModel.getCategoryId()));
+			collectionEntity.setCaloriesBurnt(Float.parseFloat(addWorkoutModel.getCaloriesBurnt()));
+			collectionEntity.setWorkoutTitle(addWorkoutModel.getWorkoutTitle());
+			collectionEntity.setWorkoutNote(addWorkoutModel.getWorkoutNote());
+		}catch(NumberFormatException e) {
+			System.out.println("<---------inside catch------------->");
+			throw new BusinessException(e.toString());
 		}		
-		collectionEntity.setCategoryId(Integer.parseInt(addWorkoutModel.getCategoryId()));
-		collectionEntity.setCaloriesBurnt(Float.parseFloat(addWorkoutModel.getCaloriesBurnt()));
-		collectionEntity.setWorkoutTitle(addWorkoutModel.getWorkoutTitle());
-		collectionEntity.setWorkoutNote(addWorkoutModel.getWorkoutNote());
 		HibernateUtil.insertInfo(collectionEntity);
 		return CommonConstants.SUCCESS_RESPONSE;		
 	}
