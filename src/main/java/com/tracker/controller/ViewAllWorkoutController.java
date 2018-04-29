@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tracker.Exception.BusinessException;
 import com.tracker.model.AddWorkoutModel;
 import com.tracker.model.CategoryModel;
 import com.tracker.model.StartEndWorkoutModel;
@@ -70,16 +71,11 @@ public class ViewAllWorkoutController {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/startWorkout",method=RequestMethod.POST)
-	public String startWorkout(@RequestBody AddWorkoutModel startWorkoutModel) {
+	public String startWorkout(@RequestBody AddWorkoutModel startWorkoutModel)throws BusinessException {
 		System.out.println("***********************************************");
 		System.out.println("Inside START WORKOUT" + startWorkoutModel.toString());
 		System.out.println("***********************************************");
-		String respStr = null;
-		try {
-			respStr = workoutService.startWorkout(startWorkoutModel);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		String respStr = workoutService.startWorkout(startWorkoutModel);
 		return respStr;		
 	}
 	

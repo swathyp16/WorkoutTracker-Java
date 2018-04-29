@@ -57,7 +57,7 @@ public class WorkoutServiceImpl implements IWorkoutService{
 	}
 	
 	@Override
-	public String startWorkout(AddWorkoutModel startEndWorkoutModel) {
+	public String startWorkout(AddWorkoutModel startEndWorkoutModel) throws BusinessException {
 		WorkoutActiveEntity workoutActiveEntity = new WorkoutActiveEntity();
 		workoutActiveEntity.setWorkout_id(Integer.parseInt(startEndWorkoutModel.getWorkoutId()));
 		if(startEndWorkoutModel.isStartWorkoutFlag() == true) {
