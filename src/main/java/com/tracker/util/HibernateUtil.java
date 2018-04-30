@@ -91,7 +91,7 @@ public class HibernateUtil {
 			categoryModel.setCategoryName(row[1].toString());
 			categoryList.add(categoryModel);
 		}
-		
+		System.out.println("categoryList : "+ categoryList.toString());
 		return categoryList;
 	}
 	
