@@ -15,6 +15,7 @@ import com.tracker.model.CategoryModel;
 import com.tracker.service.CategoryServiceImpl;
 import com.tracker.service.WorkoutServiceImpl;
 
+//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class CreateCategoryController {
 
@@ -61,7 +62,7 @@ public class CreateCategoryController {
 		System.out.println("***********************************************");
 		String respStr = null;
 		try {
-			respStr = categoryServiceImpl.deleteCategory(categoryModel.getCategoryName());
+			respStr = categoryServiceImpl.deleteCategory(categoryModel.getCategoryId());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

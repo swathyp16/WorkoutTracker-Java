@@ -5,5 +5,9 @@ public class QueryConstants {
 	public static final String VIEW_WORKOUTS_QUERY = "select * from workout_collection";
 	
 	public static final String VIEW_CATEGORY_QUERY = "select * from workout_category";
+	
+	public static final String DELETE_WORKOUT_QUERY = "delete from WorkoutCollectionEntity A where A.workoutTitle = ?1";
+	
+	public static final String DELETE_CATEGORY_QUERY = "delete from CategoryEntity A where A.categoryName = ?1";
 
 }

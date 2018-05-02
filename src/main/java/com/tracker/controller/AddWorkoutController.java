@@ -27,7 +27,7 @@ public class AddWorkoutController {
 	@Autowired
 	WorkoutServiceImpl workoutService;
 	
-	@CrossOrigin(origins = "http://localhost:4200")
+	@CrossOrigin//(origins = "http://localhost:4200")
 	@RequestMapping(value="/all",method=RequestMethod.POST)
 	public String createWorkout(@RequestBody AddWorkoutModel addWorkoutModel) throws BusinessException {
 		System.out.println("***********************************************");
