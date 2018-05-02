@@ -64,9 +64,9 @@ public class WorkoutServiceImpl implements IWorkoutService{
 	}
 	
 	@Override
-	public String deleteWorkout(String workoutTitle) {
+	public String deleteWorkout(String workoutId) throws BusinessException {
 		//HibernateUtil.deleteWorkout(workoutTitle);
-		workoutDao.deleteWorkout(workoutTitle);
+		workoutDao.deleteWorkout(workoutId);
 		return CommonConstants.SUCCESS_RESPONSE;
 	}
 	

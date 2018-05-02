@@ -12,7 +12,7 @@ public interface IWorkoutService {
 	
 	public List<AddWorkoutModel> viewAllWorkouts();
 	
-	public String deleteWorkout(String workoutTitle);
+	public String deleteWorkout(String workoutTitle)throws BusinessException;
 
 	public List<AddWorkoutModel> editWorkout(String workoutId);
 	

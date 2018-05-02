@@ -41,16 +41,16 @@ public class ViewAllWorkoutController {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/deleteWorkout",method=RequestMethod.POST)
-	public String deleteCategory(@RequestBody AddWorkoutModel workoutModel) {
+	public String deleteCategory(@RequestBody AddWorkoutModel workoutModel) throws BusinessException {
 		System.out.println("***********************************************");
 		System.out.println("Inside DELETE WORKOUT" + workoutModel.toString());
 		System.out.println("***********************************************");
 		String respStr = null;
-		try {
-			respStr = workoutService.deleteWorkout(workoutModel.getWorkoutTitle());
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		//try {
+			respStr = workoutService.deleteWorkout(workoutModel.getWorkoutId());
+		//}catch(Exception e) {
+		//	e.printStackTrace();
+		//}
 		return respStr;		
 	}
 	

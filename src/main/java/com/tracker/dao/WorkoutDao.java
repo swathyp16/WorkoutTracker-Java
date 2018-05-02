@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.tracker.Exception.BusinessException;
 import com.tracker.entity.CategoryEntity;
 import com.tracker.entity.WorkoutActiveEntity;
 import com.tracker.entity.WorkoutCollectionEntity;
@@ -40,9 +41,13 @@ public class WorkoutDao {
 		return workoutList;
 	}
 	
-	public void deleteWorkout(String workoutTitle) {
-		System.out.println("Calling workoutCollectionRepo DELETE : " + workoutTitle);
-		workoutCollectionRepository.deleteByWorkoutTitle(workoutTitle);
+	public void deleteWorkout(String workoutId) throws BusinessException {
+		System.out.println("Calling workoutCollectionRepo DELETE : " + workoutId);
+		try {
+			workoutCollectionRepository.deleteById(Integer.parseInt(workoutId));
+		}catch(IllegalArgumentException e) {
+			throw new BusinessException(e.toString());
+		}		
 	}
 	
 	public List<WorkoutCollectionEntity> fetchEditWorkoutDetails(String workoutId){
