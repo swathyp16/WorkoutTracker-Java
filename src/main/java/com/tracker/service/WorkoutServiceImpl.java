@@ -2,11 +2,13 @@ package com.tracker.service;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.tracker.Exception.BusinessException;
 import com.tracker.constants.CommonConstants;
@@ -71,7 +73,7 @@ public class WorkoutServiceImpl implements IWorkoutService{
 	}
 	
 	@Override
-	public List<AddWorkoutModel> editWorkout(String workoutId) {
+	public List<AddWorkoutModel> editWorkout(String workoutId) throws BusinessException {
 		List<WorkoutCollectionEntity> editModel = workoutDao.fetchEditWorkoutDetails(workoutId);
 		List<AddWorkoutModel> editWorkoutDetails = new ArrayList<AddWorkoutModel>();
 		AddWorkoutModel addWorkoutModel= null;
@@ -82,10 +84,24 @@ public class WorkoutServiceImpl implements IWorkoutService{
 			addWorkoutModel.setWorkoutNote(editData.getWorkoutNote());
 			addWorkoutModel.setCaloriesBurnt(Float.toString(editData.getCaloriesBurnt()));
 			addWorkoutModel.setCategoryId(Integer.toString(editData.getCategoryId()));
+			fetchStartWorkoutDetails(workoutId, addWorkoutModel);
 			editWorkoutDetails.add(addWorkoutModel);
 		}
 				//HibernateUtil.editWorkout(workoutId);
 		return editWorkoutDetails;
+	}
+	
+	
+	private void fetchStartWorkoutDetails(String workoutId,AddWorkoutModel addWorkoutModel) throws BusinessException {
+		WorkoutActiveEntity workoutActiveEntity = workoutDao.fetchStartWorkoutDetails(workoutId);
+		if(workoutActiveEntity!=null) {
+			Date inputDate = workoutActiveEntity.getStartDate();
+			addWorkoutModel.setStartDate(CommonUtil.formatDateToString(inputDate));
+			if(workoutActiveEntity.getStartTime()!=null) {
+				addWorkoutModel.setStartTime(workoutActiveEntity.getStartTime().toString());
+			}		
+		}
+		//return addWorkoutModel;
 	}
 	
 	@Override
@@ -98,6 +114,8 @@ public class WorkoutServiceImpl implements IWorkoutService{
 			workoutActiveEntity.setComment(CommonConstants.STARTED_STATUS);
 			workoutActiveEntity.setStatus(Boolean.FALSE);
 		} else if(startEndWorkoutModel.isStartWorkoutFlag() == false){
+			workoutActiveEntity.setStartDate(CommonUtil.formatDate(startEndWorkoutModel.getStartDate()));
+			workoutActiveEntity.setStartTime(Time.valueOf(startEndWorkoutModel.getStartTime()));
 			workoutActiveEntity.setEndDate(CommonUtil.formatDate(startEndWorkoutModel.getEndDate()));
 			workoutActiveEntity.setEndTime(Time.valueOf(startEndWorkoutModel.getEndTime()));
 			workoutActiveEntity.setComment(CommonConstants.ENDED_STATUS);

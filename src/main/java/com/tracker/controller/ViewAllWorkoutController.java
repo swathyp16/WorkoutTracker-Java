@@ -56,16 +56,16 @@ public class ViewAllWorkoutController {
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/editWorkout/{workoutId}",method=RequestMethod.GET)
-	public List<AddWorkoutModel> editWorkout(@PathVariable String workoutId) {
+	public List<AddWorkoutModel> editWorkout(@PathVariable String workoutId) throws BusinessException {
 		System.out.println("***********************************************");
 		System.out.println("Inside EDIT WORKOUT" + workoutId);
 		System.out.println("***********************************************");
 		List<AddWorkoutModel> editModel = new ArrayList<AddWorkoutModel>();
-		try {
+		//try {
 			editModel = workoutService.editWorkout(workoutId);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		//}catch(Exception e) {
+		//	e.printStackTrace();
+		//}
 		return editModel;		
 	}
 	

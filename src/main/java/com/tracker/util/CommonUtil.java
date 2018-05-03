@@ -36,4 +36,13 @@ public class CommonUtil {
 		 return formattedDate;
 	}
 	
+	public static String formatDateToString(Date inputDate) throws BusinessException {
+		// Date formattedDate = null;
+		//try {
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			String formattedDate = simpleDateFormat.format(inputDate);
+			System.out.println("formattedDate: " + formattedDate);
+			return formattedDate;
+	}
+	
 }

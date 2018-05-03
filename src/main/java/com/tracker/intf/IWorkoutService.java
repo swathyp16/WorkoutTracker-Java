@@ -14,7 +14,7 @@ public interface IWorkoutService {
 	
 	public String deleteWorkout(String workoutTitle)throws BusinessException;
 
-	public List<AddWorkoutModel> editWorkout(String workoutId);
+	public List<AddWorkoutModel> editWorkout(String workoutId) throws BusinessException;
 	
 	public String startWorkout(AddWorkoutModel startEndWorkoutModel) throws BusinessException;
 }

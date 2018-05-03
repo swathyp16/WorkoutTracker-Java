@@ -23,16 +23,17 @@ public class WorkoutTrackerServiceImpl implements IWorkoutTrackerService {
 	public WorkoutTrackerModel getWorkoutTrackerData() throws BusinessException {
 		WorkoutTrackerModel workoutTrackerModel = new WorkoutTrackerModel();
 		long timeDuration;
-		long timeDurationInMinutes;
+		Integer timeDurationInMinutes = 0;
 		String currentDate = CommonUtil.formatCurrentDateToString(new Date());
 		System.out.println("currentDate: " + currentDate);
 		List<WorkoutActiveEntity> completedWorkoutsList = workoutTrackerDao.fetchWorkoutTrackerData(currentDate);
 		for(WorkoutActiveEntity workoutActivity: completedWorkoutsList) {
-			timeDuration= workoutActivity.getStartTime().getTime() - workoutActivity.getEndTime().getTime();
-			timeDurationInMinutes = TimeUnit.MILLISECONDS.toMinutes(timeDuration);
-			System.out.println("timeDurationInMinutes : "+ timeDurationInMinutes);
-			
+			timeDuration= workoutActivity.getEndTime().getTime() - workoutActivity.getStartTime().getTime();
+			timeDurationInMinutes = (int) (timeDurationInMinutes + TimeUnit.MILLISECONDS.toMinutes(timeDuration));
+			System.out.println("timeDurationInMinutes : "+ timeDurationInMinutes);			
 		}
+		workoutTrackerModel.setWorkoutTimeOfDay(timeDurationInMinutes);
+		workoutTrackerDao.fetchCurrentWeekWorkouts();
 		return workoutTrackerModel;
 	}
 	

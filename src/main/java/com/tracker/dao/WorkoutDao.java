@@ -77,4 +77,10 @@ public class WorkoutDao {
 		//categoryRepository.deleteByCategoryName(categoryName);
 	}
 	
+	public WorkoutActiveEntity fetchStartWorkoutDetails(String workoutId) {
+		System.out.println("Calling workoutCollectionRepo SAVE");
+		WorkoutActiveEntity workoutActiveEntity = workoutActiveRepository.findByWorkout_id(Integer.parseInt(workoutId));
+		return workoutActiveEntity;
+	}
+	
 }
