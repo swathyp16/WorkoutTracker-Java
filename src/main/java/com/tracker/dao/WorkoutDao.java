@@ -57,7 +57,7 @@ public class WorkoutDao {
 		return editDetailsList;
 	}
 	
-	public void startWorkout(WorkoutActiveEntity workoutActiveEntity,boolean isStartWorkout) {
+	public void startWorkout(WorkoutActiveEntity workoutActiveEntity) {
 		System.out.println("Calling workoutCollectionRepo SAVE");
 		workoutActiveRepository.save(workoutActiveEntity);
 	}

@@ -24,4 +24,16 @@ public class CommonUtil {
 		 return formattedDate;
 	}
 	
+	public static String formatCurrentDateToString(Date currentDate) throws BusinessException {
+		 //formattedDate = null;
+		//try {
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String formattedDate = simpleDateFormat.format(currentDate);			
+		//} catch ( e) {
+		//	throw new BusinessException(CommonConstants.INVALID_DATE_FORMAT);
+		//}  
+		System.out.println("formattedDate: " + formattedDate);
+		 return formattedDate;
+	}
+	
 }

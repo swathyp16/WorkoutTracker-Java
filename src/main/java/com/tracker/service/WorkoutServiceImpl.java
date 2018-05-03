@@ -96,14 +96,16 @@ public class WorkoutServiceImpl implements IWorkoutService{
 			workoutActiveEntity.setStartDate(CommonUtil.formatDate(startEndWorkoutModel.getStartDate()));
 			workoutActiveEntity.setStartTime(Time.valueOf(startEndWorkoutModel.getStartTime()));
 			workoutActiveEntity.setComment(CommonConstants.STARTED_STATUS);
+			workoutActiveEntity.setStatus(Boolean.FALSE);
 		} else if(startEndWorkoutModel.isStartWorkoutFlag() == false){
 			workoutActiveEntity.setEndDate(CommonUtil.formatDate(startEndWorkoutModel.getEndDate()));
 			workoutActiveEntity.setEndTime(Time.valueOf(startEndWorkoutModel.getEndTime()));
 			workoutActiveEntity.setComment(CommonConstants.ENDED_STATUS);
+			workoutActiveEntity.setStatus(Boolean.TRUE);
 		}		
-		System.out.println("<----------- workoutActiveEntity ----------->" + workoutActiveEntity.toString());
+		//System.out.println("<----------- workoutActiveEntity ----------->" + workoutActiveEntity.toString());
 		//HibernateUtil.startWorkout(workoutActiveEntity,startEndWorkoutModel.isStartWorkoutFlag());
-		workoutDao.startWorkout(workoutActiveEntity, startEndWorkoutModel.isStartWorkoutFlag());
+		workoutDao.startWorkout(workoutActiveEntity);
 		return CommonConstants.SUCCESS_RESPONSE;		
 	}
 
