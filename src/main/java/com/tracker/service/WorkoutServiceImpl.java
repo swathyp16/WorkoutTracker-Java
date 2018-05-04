@@ -32,7 +32,7 @@ public class WorkoutServiceImpl implements IWorkoutService{
 		WorkoutCollectionEntity collectionEntity = new WorkoutCollectionEntity();
 		try {
 			if(addWorkoutModel.getWorkoutId() != null) {
-				collectionEntity.setWorkout_id(Integer.parseInt(addWorkoutModel.getWorkoutId()));
+				collectionEntity.setWorkoutId(Integer.parseInt(addWorkoutModel.getWorkoutId()));
 			}		
 			collectionEntity.setCategoryId(Integer.parseInt(addWorkoutModel.getCategoryId()));
 			collectionEntity.setCaloriesBurnt(Float.parseFloat(addWorkoutModel.getCaloriesBurnt()));
@@ -53,7 +53,7 @@ public class WorkoutServiceImpl implements IWorkoutService{
 		AddWorkoutModel addWorkoutModel = null;
 		for(WorkoutCollectionEntity workout : workoutEntityList) {
 			addWorkoutModel = new AddWorkoutModel();
-			addWorkoutModel.setWorkoutId(Integer.toString(workout.getWorkout_id()));
+			addWorkoutModel.setWorkoutId(Integer.toString(workout.getWorkoutId()));
 			addWorkoutModel.setWorkoutTitle(workout.getWorkoutTitle());
 			addWorkoutModel.setWorkoutNote(workout.getWorkoutNote());
 			addWorkoutModel.setCaloriesBurnt(Float.toString(workout.getCaloriesBurnt()));
@@ -79,7 +79,7 @@ public class WorkoutServiceImpl implements IWorkoutService{
 		AddWorkoutModel addWorkoutModel= null;
 		for(WorkoutCollectionEntity editData :editModel) {
 			addWorkoutModel = new AddWorkoutModel();
-			addWorkoutModel.setWorkoutId(Integer.toString(editData.getWorkout_id()));
+			addWorkoutModel.setWorkoutId(Integer.toString(editData.getWorkoutId()));
 			addWorkoutModel.setWorkoutTitle(editData.getWorkoutTitle());
 			addWorkoutModel.setWorkoutNote(editData.getWorkoutNote());
 			addWorkoutModel.setCaloriesBurnt(Float.toString(editData.getCaloriesBurnt()));
@@ -107,7 +107,7 @@ public class WorkoutServiceImpl implements IWorkoutService{
 	@Override
 	public String startWorkout(AddWorkoutModel startEndWorkoutModel) throws BusinessException {
 		WorkoutActiveEntity workoutActiveEntity = new WorkoutActiveEntity();
-		workoutActiveEntity.setWorkout_id(Integer.parseInt(startEndWorkoutModel.getWorkoutId()));
+		workoutActiveEntity.setWorkoutId(Integer.parseInt(startEndWorkoutModel.getWorkoutId()));
 		if(startEndWorkoutModel.isStartWorkoutFlag() == true) {
 			workoutActiveEntity.setStartDate(CommonUtil.formatDate(startEndWorkoutModel.getStartDate()));
 			workoutActiveEntity.setStartTime(Time.valueOf(startEndWorkoutModel.getStartTime()));

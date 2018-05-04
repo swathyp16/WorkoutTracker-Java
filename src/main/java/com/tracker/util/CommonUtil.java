@@ -20,7 +20,7 @@ public class CommonUtil {
 		} catch (ParseException e) {
 			throw new BusinessException(CommonConstants.INVALID_DATE_FORMAT);
 		}  
-		System.out.println("formattedDate: " + formattedDate);
+		System.out.println("formattedDate 123: " + formattedDate);
 		 return formattedDate;
 	}
 	
@@ -45,4 +45,8 @@ public class CommonUtil {
 			return formattedDate;
 	}
 	
+	
+	public static void main(String[] args) throws BusinessException {
+		formatDate("03/05/2018");
+	}
 }

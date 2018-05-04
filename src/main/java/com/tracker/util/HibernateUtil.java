@@ -33,13 +33,13 @@ public class HibernateUtil {
 		sessionFactory = conf.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
-		SQLQuery query = session.createSQLQuery("select *  from workout_collection where workout_id ="+collectionEntity.getWorkout_id());
+		SQLQuery query = session.createSQLQuery("select *  from workout_collection where workout_id ="+collectionEntity.getWorkoutId());
 		List<Object[]> rows = query.list();
 		System.out.println("rows: " + rows.size());
 		if(!rows.isEmpty() && rows.size()>0) {
 			System.out.println("*********inisde loop 1 **********");
 			SQLQuery updateQuery = session.createSQLQuery("UPDATE workout_collection SET workout_title ='"+ collectionEntity.getWorkoutTitle() +
-					"' , workout_note = '" + collectionEntity.getWorkoutNote()+ "' , category_id = " + collectionEntity.getCategoryId()+" where workout_id ="+ collectionEntity.getWorkout_id());
+					"' , workout_note = '" + collectionEntity.getWorkoutNote()+ "' , category_id = " + collectionEntity.getCategoryId()+" where workout_id ="+ collectionEntity.getWorkoutId());
 			updateQuery.executeUpdate();
 		}else {
 			System.out.println("*********inisde loop 2 **********");
@@ -184,7 +184,7 @@ public class HibernateUtil {
 			query.setTime("endTime", workoutActiveEntity.getEndTime());
 			query.setBoolean("status", Boolean.TRUE);
 			query.setString("comment", CommonConstants.ENDED_STATUS);
-			query.setInteger("workId", workoutActiveEntity.getWorkout_id());
+			query.setInteger("workId", workoutActiveEntity.getWorkoutId());
 			query.executeUpdate();
 		}		
 		tx.commit();

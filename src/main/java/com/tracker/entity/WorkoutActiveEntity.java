@@ -16,7 +16,8 @@ import javax.persistence.Table;
 public class WorkoutActiveEntity {
 
 	@Id
-	public int workout_id;
+	@Column(name="workout_id")
+	public int workoutId;
 	
 	@Column(name="start_time")
 	public Time startTime;
@@ -37,12 +38,12 @@ public class WorkoutActiveEntity {
 	public boolean status;
 	
 
-	public int getWorkout_id() {
-		return workout_id;
+	public int getWorkoutId() {
+		return workoutId;
 	}
 
-	public void setWorkout_id(int workout_id) {
-		this.workout_id = workout_id;
+	public void setWorkoutId(int workoutId) {
+		this.workoutId = workoutId;
 	}
 
 	public Time getStartTime() {
@@ -95,13 +96,10 @@ public class WorkoutActiveEntity {
 
 	@Override
 	public String toString() {
-		return "WorkoutActiveEntity [workout_id=" + workout_id + ", startTime=" + startTime + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", endTime=" + endTime + ", comment=" + comment + ", status=" + status + "]";
+		return "WorkoutActiveEntity [startTime=" + startTime + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", endTime=" + endTime + ", comment=" + comment + ", status=" + status + "]";
 	}
 
-	
-	
-	
 	
 	
 	

@@ -1,10 +1,15 @@
 package com.tracker.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -12,8 +17,9 @@ import javax.persistence.Table;
 public class WorkoutCollectionEntity {
 	
 	 	@Id
+	 	@Column(name="workout_id")
 	    @GeneratedValue(strategy=GenerationType.AUTO)
-		public int  workout_id;	    
+		public int  workoutId;	    
  	
 	    @Column(name="workout_title")
 	    public String workoutTitle;
@@ -25,14 +31,26 @@ public class WorkoutCollectionEntity {
 	    public float caloriesBurnt;
 	    
 	    @Column(name="category_id")
-	    public int categoryId;
+	    public int categoryId;	    
+	    
+	    @OneToOne(cascade = CascadeType.ALL)
+	    @PrimaryKeyJoinColumn(name = "workout_id", referencedColumnName = "workout_id")
+	    WorkoutActiveEntity workoutActiveEntity;		
 
-		public int getWorkout_id() {
-			return workout_id;
+		public int getWorkoutId() {
+			return workoutId;
 		}
 
-		public void setWorkout_id(int workout_id) {
-			this.workout_id = workout_id;
+		public void setWorkoutId(int workoutId) {
+			this.workoutId = workoutId;
+		}
+
+		public WorkoutActiveEntity getWorkoutActiveEntity() {
+			return workoutActiveEntity;
+		}
+
+		public void setWorkoutActiveEntity(WorkoutActiveEntity workoutActiveEntity) {
+			this.workoutActiveEntity = workoutActiveEntity;
 		}
 
 		public String getWorkoutTitle() {
@@ -69,11 +87,12 @@ public class WorkoutCollectionEntity {
 
 		@Override
 		public String toString() {
-			return "WorkoutCollectionEntity [workout_id=" + workout_id + ", workoutTitle=" + workoutTitle
+			return "WorkoutCollectionEntity [workoutId=" + workoutId + ", workoutTitle=" + workoutTitle
 					+ ", workoutNote=" + workoutNote + ", caloriesBurnt=" + caloriesBurnt + ", categoryId=" + categoryId
-					+ "]";
+					+ ", workoutActiveEntity=" + workoutActiveEntity + "]";
 		}
 
+		
 		
 
 

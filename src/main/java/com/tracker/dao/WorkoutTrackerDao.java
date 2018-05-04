@@ -2,6 +2,8 @@ package com.tracker.dao;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +11,18 @@ import org.springframework.stereotype.Component;
 
 import com.tracker.constants.CommonConstants;
 import com.tracker.entity.WorkoutActiveEntity;
+import com.tracker.entity.WorkoutCollectionEntity;
 import com.tracker.repository.WorkoutActiveRepository;
+import com.tracker.repository.WorkoutCollectionRepository;
 
 @Component("workoutTrackerDao")
 public class WorkoutTrackerDao {
 	
 	@Autowired
 	private WorkoutActiveRepository workoutActiveRepository;
+	
+	@Autowired
+	private WorkoutCollectionRepository workoutCollectionRepository;
 	
 	public List<WorkoutActiveEntity> fetchWorkoutTrackerData(String currentDate) {
 		List<WorkoutActiveEntity> completedWorkoutsList = workoutActiveRepository.findCurrentDayWorkoutTime(currentDate,CommonConstants.WORKOUT_COMPLETED_STATUS);
@@ -24,23 +31,40 @@ public class WorkoutTrackerDao {
 	}
 	
 	
-	public void fetchCurrentWeekWorkouts() {
+	public List<WorkoutCollectionEntity> fetchCurrentWeekWorkouts() {
 		LocalDate today = LocalDate.now();
 		LocalDate monday = today;
 	    while (monday.getDayOfWeek() != DayOfWeek.MONDAY) {
 	      monday = monday.minusDays(1);
 	    }
+	    Date mondayDate = covertLocaleDateToDate(monday);
+	    System.out.println("mondayDate : "+ mondayDate);
 	    LocalDate sunday = today;
 	    while (sunday.getDayOfWeek() != DayOfWeek.SUNDAY) {
 	      sunday = sunday.plusDays(1);
 	    }
-		List<WorkoutActiveEntity> currentWeekWorkouts = workoutActiveRepository.fetchCurrentWeekWorkouts(monday,sunday);
-		for(WorkoutActiveEntity workoutActiveEntity :currentWeekWorkouts) {
+	    Date sundayDate = covertLocaleDateToDate(sunday);
+	    System.out.println("sundayDate : "+ sundayDate);
+		//List<WorkoutActiveEntity> currentWeekWorkouts = workoutActiveRepository.fetchCurrentWeekWorkouts(monday,sunday);
+		/*for(WorkoutActiveEntity workoutActiveEntity :currentWeekWorkouts) {
 			System.out.println("**************************");
 			System.out.println(workoutActiveEntity.toString());
 			System.out.println("**************************");
+		}*/
+	   List<WorkoutCollectionEntity> currentWeekWorkouts = workoutCollectionRepository.fetchCurrentWeekWorkouts(mondayDate,sundayDate);
+	   for(WorkoutCollectionEntity workoutCollectionEntity :currentWeekWorkouts) {
+			System.out.println("**************************");
+			System.out.println(workoutCollectionEntity.toString());
+			System.out.println("**************************");
 		}
+	   return currentWeekWorkouts;
 	}
+	
+	private Date covertLocaleDateToDate(LocalDate localDate) {
+		Date newDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		return newDate;
+	}
+	
 	
 	
 	/*public static void main(String[] args) {
