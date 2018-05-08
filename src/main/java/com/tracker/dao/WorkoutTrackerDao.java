@@ -1,14 +1,19 @@
 package com.tracker.dao;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.tracker.Exception.BusinessException;
 import com.tracker.constants.CommonConstants;
 import com.tracker.entity.WorkoutActiveEntity;
 import com.tracker.entity.WorkoutCollectionEntity;
@@ -59,6 +64,34 @@ public class WorkoutTrackerDao {
 		}
 	   return currentWeekWorkouts;
 	}
+	
+	public List<WorkoutCollectionEntity> fetchCurrentMonthWorkouts() throws BusinessException{
+		Date firstDayOfMonth = getFirstDateOfMonth(new Date());		
+		Date lastDayOfMonth = getLastDateOfMonth(new Date());
+		System.out.println("First day : "+ firstDayOfMonth + "lastDayOfMonth : " + lastDayOfMonth);
+		List<WorkoutCollectionEntity> currentMonthWorkouts = workoutCollectionRepository.fetchCurrentMonthWorkouts(firstDayOfMonth,lastDayOfMonth);
+		return currentMonthWorkouts;
+	}
+	
+	
+	public List<WorkoutCollectionEntity> fetchCurrentYearWorkouts(){
+		List<WorkoutCollectionEntity> currentYearWorkouts = workoutCollectionRepository.fetchCurrentYearWorkouts(CommonConstants.CURRENT_YEAR);
+		return currentYearWorkouts;
+	}
+	
+	private Date getFirstDateOfMonth(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+        return cal.getTime();
+    }
+	
+	private Date getLastDateOfMonth(Date date){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return cal.getTime();
+    }
 	
 	private Date covertLocaleDateToDate(LocalDate localDate) {
 		Date newDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());

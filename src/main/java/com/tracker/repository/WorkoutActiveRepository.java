@@ -20,8 +20,8 @@ public interface WorkoutActiveRepository extends JpaRepository<WorkoutActiveEnti
 	@Query(value = QueryConstants.FETCH_START_WORKOUT_DETAILS,nativeQuery=true)
 	WorkoutActiveEntity findByWorkout_id(int workoutId);
 
-	@Query(value = QueryConstants.FETCH_CURRENT_WEEK_WORKOUTS,nativeQuery=true)
-	List<WorkoutActiveEntity> fetchCurrentWeekWorkouts(LocalDate monday, LocalDate sunday);
+	//@Query(value = QueryConstants.FETCH_CURRENT_WEEK_WORKOUTS,nativeQuery=true)
+	//List<WorkoutActiveEntity> fetchCurrentWeekWorkouts(LocalDate monday, LocalDate sunday);
 
 	
 }

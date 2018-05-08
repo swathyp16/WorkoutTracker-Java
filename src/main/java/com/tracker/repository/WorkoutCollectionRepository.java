@@ -18,7 +18,13 @@ public interface WorkoutCollectionRepository extends JpaRepository<WorkoutCollec
 	@Query(value=QueryConstants.DELETE_WORKOUT_QUERY)
 	void deleteByWorkoutTitle(String workoutTitle);
 	
-	@Query(value = QueryConstants.FETCH_CURRENT_WEEK_WORKOUTS)
+	@Query(value = QueryConstants.FETCH_CURRENT_WORKOUTS)
 	List<WorkoutCollectionEntity> fetchCurrentWeekWorkouts(Date monday, Date sunday);
+	
+	@Query(value = QueryConstants.FETCH_CURRENT_WORKOUTS)
+	List<WorkoutCollectionEntity> fetchCurrentMonthWorkouts(Date firstDayOfMonth,Date lastDayOfMonth);
+	
+	@Query(value = QueryConstants.FETCH_CURRENT_YEAR_WORKOUTS)
+	List<WorkoutCollectionEntity> fetchCurrentYearWorkouts(Integer currentYear);
 
 }

@@ -16,6 +16,8 @@ public class QueryConstants {
 
 	//public static final String FETCH_CURRENT_WEEK_WORKOUTS = "SELECT * FROM workout_active A WHERE A.start_date >= ?1 and A.start_date <= ?2";
 			
-	public static final String FETCH_CURRENT_WEEK_WORKOUTS = "SELECT A FROM WorkoutCollectionEntity A WHERE A.workoutActiveEntity.startDate >= ?1 and A.workoutActiveEntity.startDate <= ?2 and A.workoutActiveEntity.status= 1";
+	public static final String FETCH_CURRENT_WORKOUTS = "SELECT A FROM WorkoutCollectionEntity A WHERE A.workoutActiveEntity.startDate >= ?1 and A.workoutActiveEntity.startDate <= ?2 and A.workoutActiveEntity.status= 1";
+	
+	public static final String FETCH_CURRENT_YEAR_WORKOUTS = "SELECT A FROM WorkoutCollectionEntity A WHERE YEAR(A.workoutActiveEntity.startDate) = ?1  and A.workoutActiveEntity.status= 1";
 	
 }

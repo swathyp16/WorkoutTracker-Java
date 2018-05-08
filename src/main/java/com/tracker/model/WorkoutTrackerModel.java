@@ -1,5 +1,7 @@
 package com.tracker.model;
 
+import java.util.List;
+
 public class WorkoutTrackerModel {
 	
 	private Integer workoutTimeOfDay;
@@ -8,11 +10,11 @@ public class WorkoutTrackerModel {
 	
 	private Integer workoutTimeOfMonth;
 	
-	private Integer weeklyCaloriesBurnt;
+	private List<AddWorkoutModel> weeklyWorkouts;
 	
-	private Integer monthlyCaloriesBurnt;
+	private List<AddWorkoutModel> monthlyWorkouts;
 	
-	private Integer yearlyCaloriesBurnt;
+	private List<AddWorkoutModel> yearlyWorkouts;
 
 	public Integer getWorkoutTimeOfDay() {
 		return workoutTimeOfDay;
@@ -38,37 +40,36 @@ public class WorkoutTrackerModel {
 		this.workoutTimeOfMonth = workoutTimeOfMonth;
 	}
 
-	public Integer getWeeklyCaloriesBurnt() {
-		return weeklyCaloriesBurnt;
+	public List<AddWorkoutModel> getWeeklyWorkouts() {
+		return weeklyWorkouts;
 	}
 
-	public void setWeeklyCaloriesBurnt(Integer weeklyCaloriesBurnt) {
-		this.weeklyCaloriesBurnt = weeklyCaloriesBurnt;
+	public void setWeeklyWorkouts(List<AddWorkoutModel> weeklyWorkouts) {
+		this.weeklyWorkouts = weeklyWorkouts;
 	}
 
-	public Integer getMonthlyCaloriesBurnt() {
-		return monthlyCaloriesBurnt;
+	public List<AddWorkoutModel> getMonthlyWorkouts() {
+		return monthlyWorkouts;
 	}
 
-	public void setMonthlyCaloriesBurnt(Integer monthlyCaloriesBurnt) {
-		this.monthlyCaloriesBurnt = monthlyCaloriesBurnt;
+	public void setMonthlyWorkouts(List<AddWorkoutModel> monthlyWorkouts) {
+		this.monthlyWorkouts = monthlyWorkouts;
 	}
 
-	public Integer getYearlyCaloriesBurnt() {
-		return yearlyCaloriesBurnt;
+	public List<AddWorkoutModel> getYearlyWorkouts() {
+		return yearlyWorkouts;
 	}
 
-	public void setYearlyCaloriesBurnt(Integer yearlyCaloriesBurnt) {
-		this.yearlyCaloriesBurnt = yearlyCaloriesBurnt;
+	public void setYearlyWorkouts(List<AddWorkoutModel> yearlyWorkouts) {
+		this.yearlyWorkouts = yearlyWorkouts;
 	}
 
 	@Override
 	public String toString() {
 		return "WorkoutTrackerModel [workoutTimeOfDay=" + workoutTimeOfDay + ", workoutTimeOfWeek=" + workoutTimeOfWeek
-				+ ", workoutTimeOfMonth=" + workoutTimeOfMonth + ", weeklyCaloriesBurnt=" + weeklyCaloriesBurnt
-				+ ", monthlyCaloriesBurnt=" + monthlyCaloriesBurnt + ", yearlyCaloriesBurnt=" + yearlyCaloriesBurnt
-				+ "]";
-	}
+				+ ", workoutTimeOfMonth=" + workoutTimeOfMonth + ", weeklyWorkouts=" + weeklyWorkouts
+				+ ", monthlyWorkouts=" + monthlyWorkouts + ", yearlyWorkouts=" + yearlyWorkouts + "]";
+	}	
 	
 	
 

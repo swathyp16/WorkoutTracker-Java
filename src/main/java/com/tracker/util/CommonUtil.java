@@ -20,33 +20,37 @@ public class CommonUtil {
 		} catch (ParseException e) {
 			throw new BusinessException(CommonConstants.INVALID_DATE_FORMAT);
 		}  
-		System.out.println("formattedDate 123: " + formattedDate);
+		//System.out.println("formattedDate 123: " + formattedDate);
 		 return formattedDate;
 	}
 	
 	public static String formatCurrentDateToString(Date currentDate) throws BusinessException {
-		 //formattedDate = null;
-		//try {
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String formattedDate = simpleDateFormat.format(currentDate);			
-		//} catch ( e) {
-		//	throw new BusinessException(CommonConstants.INVALID_DATE_FORMAT);
-		//}  
-		System.out.println("formattedDate: " + formattedDate);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String formattedDate = simpleDateFormat.format(currentDate);	
+		//System.out.println("formattedDate: " + formattedDate);
 		 return formattedDate;
 	}
 	
 	public static String formatDateToString(Date inputDate) throws BusinessException {
-		// Date formattedDate = null;
-		//try {
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			String formattedDate = simpleDateFormat.format(inputDate);
-			System.out.println("formattedDate: " + formattedDate);
-			return formattedDate;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		String formattedDate = simpleDateFormat.format(inputDate);
+		//System.out.println("formattedDate: " + formattedDate);
+		return formattedDate;
 	}
 	
 	
-	public static void main(String[] args) throws BusinessException {
-		formatDate("03/05/2018");
+	public static String formatDateForUI(Date inputDate) throws BusinessException {
+		//System.out.println("inputDate: " + inputDate);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+		Date initDate;
+		try {
+			initDate = simpleDateFormat.parse(inputDate.toString());
+		} catch (ParseException e) {
+			throw new BusinessException(e.toString());
+		}
+	    SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy");
+	    String parsedDate = formatter.format(initDate);
+	    System.out.println("parsedDate : " + parsedDate);
+	    return parsedDate; 
 	}
 }

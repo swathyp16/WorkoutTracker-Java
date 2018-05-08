@@ -13,5 +13,7 @@ public class CommonConstants {
 	public static final String FUTURE_DATE = "Date cannot be a future date";	
 
 	public static final boolean WORKOUT_COMPLETED_STATUS = Boolean.TRUE;
+	
+	public static final Integer CURRENT_YEAR = 2018;
 
 }
