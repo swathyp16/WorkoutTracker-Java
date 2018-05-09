@@ -101,6 +101,8 @@ public class WorkoutTrackerServiceImpl implements IWorkoutTrackerService {
 			 addWorkoutModel.setEndDate(CommonUtil.formatDateForUI(entity.getWorkoutActiveEntity().getEndDate()));
 			 addWorkoutModel.setWorkoutId(Integer.toString(entity.getWorkoutId()));
 			 addWorkoutModel.setWorkoutTitle(entity.getWorkoutTitle());
+			 addWorkoutModel.setStartTime(entity.getWorkoutActiveEntity().getStartTime().toString());
+			 addWorkoutModel.setEndTime(entity.getWorkoutActiveEntity().getEndTime().toString());
 			 workoutsList.add(addWorkoutModel);
 		 }
 		 return workoutsList;
