@@ -4,11 +4,9 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import com.tracker.Exception.BusinessException;
 import com.tracker.constants.CommonConstants;
@@ -17,16 +15,21 @@ import com.tracker.entity.WorkoutActiveEntity;
 import com.tracker.entity.WorkoutCollectionEntity;
 import com.tracker.intf.IWorkoutService;
 import com.tracker.model.AddWorkoutModel;
-import com.tracker.model.StartEndWorkoutModel;
 import com.tracker.util.CommonUtil;
-import com.tracker.util.HibernateUtil;
 
+/**
+ * The Class WorkoutServiceImpl.
+ */
 @Component
 public class WorkoutServiceImpl implements IWorkoutService{
 	
+	/** The workout dao. */
 	@Autowired
-	WorkoutDao workoutDao;
+	private WorkoutDao workoutDao;
 	
+	/* (non-Javadoc)
+	 * @see com.tracker.intf.IWorkoutService#addWorkout(com.tracker.model.AddWorkoutModel)
+	 */
 	@Override
 	public String addWorkout(AddWorkoutModel addWorkoutModel) throws BusinessException {
 		WorkoutCollectionEntity collectionEntity = new WorkoutCollectionEntity();
@@ -40,12 +43,14 @@ public class WorkoutServiceImpl implements IWorkoutService{
 			collectionEntity.setWorkoutNote(addWorkoutModel.getWorkoutNote());
 		}catch(NumberFormatException e) {
 			throw new BusinessException(e.toString());
-		}		
-		//HibernateUtil.insertInfo(collectionEntity);
+		}	
 		workoutDao.insertInfo(collectionEntity);
 		return CommonConstants.SUCCESS_RESPONSE;		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.tracker.intf.IWorkoutService#viewAllWorkouts()
+	 */
 	@Override
 	public List<AddWorkoutModel> viewAllWorkouts() {
 		List<WorkoutCollectionEntity> workoutEntityList = workoutDao.fetchWorkoutInfo();
@@ -60,18 +65,21 @@ public class WorkoutServiceImpl implements IWorkoutService{
 			addWorkoutModel.setCategoryId(Integer.toString(workout.getCategoryId()));
 			workoutsList.add(addWorkoutModel);
 		}
-				//HibernateUtil.getInfo();
-		
 		return workoutsList;		
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.tracker.intf.IWorkoutService#deleteWorkout(java.lang.String)
+	 */
 	@Override
 	public String deleteWorkout(String workoutId) throws BusinessException {
-		//HibernateUtil.deleteWorkout(workoutTitle);
 		workoutDao.deleteWorkout(workoutId);
 		return CommonConstants.SUCCESS_RESPONSE;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.tracker.intf.IWorkoutService#editWorkout(java.lang.String)
+	 */
 	@Override
 	public List<AddWorkoutModel> editWorkout(String workoutId) throws BusinessException {
 		List<WorkoutCollectionEntity> editModel = workoutDao.fetchEditWorkoutDetails(workoutId);
@@ -87,11 +95,17 @@ public class WorkoutServiceImpl implements IWorkoutService{
 			fetchStartWorkoutDetails(workoutId, addWorkoutModel);
 			editWorkoutDetails.add(addWorkoutModel);
 		}
-				//HibernateUtil.editWorkout(workoutId);
 		return editWorkoutDetails;
 	}
 	
 	
+	/**
+	 * Fetch start workout details.
+	 *
+	 * @param workoutId the workout id
+	 * @param addWorkoutModel the add workout model
+	 * @throws BusinessException the business exception
+	 */
 	private void fetchStartWorkoutDetails(String workoutId,AddWorkoutModel addWorkoutModel) throws BusinessException {
 		WorkoutActiveEntity workoutActiveEntity = workoutDao.fetchStartWorkoutDetails(workoutId);
 		if(workoutActiveEntity!=null) {
@@ -101,9 +115,11 @@ public class WorkoutServiceImpl implements IWorkoutService{
 				addWorkoutModel.setStartTime(workoutActiveEntity.getStartTime().toString());
 			}		
 		}
-		//return addWorkoutModel;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.tracker.intf.IWorkoutService#startWorkout(com.tracker.model.AddWorkoutModel)
+	 */
 	@Override
 	public String startWorkout(AddWorkoutModel startEndWorkoutModel) throws BusinessException {
 		WorkoutActiveEntity workoutActiveEntity = new WorkoutActiveEntity();
@@ -120,9 +136,7 @@ public class WorkoutServiceImpl implements IWorkoutService{
 			workoutActiveEntity.setEndTime(Time.valueOf(startEndWorkoutModel.getEndTime()));
 			workoutActiveEntity.setComment(CommonConstants.ENDED_STATUS);
 			workoutActiveEntity.setStatus(Boolean.TRUE);
-		}		
-		//System.out.println("<----------- workoutActiveEntity ----------->" + workoutActiveEntity.toString());
-		//HibernateUtil.startWorkout(workoutActiveEntity,startEndWorkoutModel.isStartWorkoutFlag());
+		}	
 		workoutDao.startWorkout(workoutActiveEntity);
 		return CommonConstants.SUCCESS_RESPONSE;		
 	}

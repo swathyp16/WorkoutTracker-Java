@@ -13,68 +13,71 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tracker.Exception.BusinessException;
 import com.tracker.model.AddWorkoutModel;
-import com.tracker.model.CategoryModel;
-import com.tracker.model.StartEndWorkoutModel;
 import com.tracker.service.WorkoutServiceImpl;
 
+/**
+ * The Class ViewAllWorkoutController.
+ */
 @RestController
 public class ViewAllWorkoutController {
 
+	/** The workout service. */
 	@Autowired
-	WorkoutServiceImpl workoutService;
+	private WorkoutServiceImpl workoutService;
 	
+	/**
+	 * View all workout.
+	 *
+	 * @return the list
+	 */
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/viewAllWorkout",method=RequestMethod.GET)
 	public List<AddWorkoutModel> viewAllWorkout() {
-		System.out.println("***********************************************");
-		System.out.println("Inside VIEW ALL WORKOUT");
-		System.out.println("***********************************************");
-		List<AddWorkoutModel> workoutsList = new ArrayList<AddWorkoutModel>() ;
-		try {
-			workoutsList = workoutService.viewAllWorkouts();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		List<AddWorkoutModel> workoutsList =  workoutService.viewAllWorkouts();
 		return workoutsList;
 		
 	}
 	
+	/**
+	 * Delete category.
+	 *
+	 * @param workoutModel the workout model
+	 * @return the string
+	 * @throws BusinessException the business exception
+	 */
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/deleteWorkout",method=RequestMethod.POST)
 	public String deleteCategory(@RequestBody AddWorkoutModel workoutModel) throws BusinessException {
-		System.out.println("***********************************************");
-		System.out.println("Inside DELETE WORKOUT" + workoutModel.toString());
-		System.out.println("***********************************************");
 		String respStr = null;
-		//try {
-			respStr = workoutService.deleteWorkout(workoutModel.getWorkoutId());
-		//}catch(Exception e) {
-		//	e.printStackTrace();
-		//}
+		respStr = workoutService.deleteWorkout(workoutModel.getWorkoutId());
 		return respStr;		
 	}
 	
+	/**
+	 * Edits the workout.
+	 *
+	 * @param workoutId the workout id
+	 * @return the list
+	 * @throws BusinessException the business exception
+	 */
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/editWorkout/{workoutId}",method=RequestMethod.GET)
 	public List<AddWorkoutModel> editWorkout(@PathVariable String workoutId) throws BusinessException {
-		System.out.println("***********************************************");
-		System.out.println("Inside EDIT WORKOUT" + workoutId);
-		System.out.println("***********************************************");
 		List<AddWorkoutModel> editModel = new ArrayList<AddWorkoutModel>();
-		//try {
-			editModel = workoutService.editWorkout(workoutId);
-		//}catch(Exception e) {
-		//	e.printStackTrace();
-		//}
+		editModel = workoutService.editWorkout(workoutId);
 		return editModel;		
 	}
 	
+	/**
+	 * Start workout.
+	 *
+	 * @param startWorkoutModel the start workout model
+	 * @return the string
+	 * @throws BusinessException the business exception
+	 */
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/startWorkout",method=RequestMethod.POST)
 	public String startWorkout(@RequestBody AddWorkoutModel startWorkoutModel)throws BusinessException {
-		System.out.println("***********************************************");
-		System.out.println("Inside START WORKOUT" + startWorkoutModel.toString());
-		System.out.println("***********************************************");
 		String respStr = workoutService.startWorkout(startWorkoutModel);
 		return respStr;		
 	}

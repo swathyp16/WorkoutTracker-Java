@@ -1,7 +1,6 @@
 package com.tracker.service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,12 +17,19 @@ import com.tracker.model.AddWorkoutModel;
 import com.tracker.model.WorkoutTrackerModel;
 import com.tracker.util.CommonUtil;
 
+/**
+ * The Class WorkoutTrackerServiceImpl.
+ */
 @Component
 public class WorkoutTrackerServiceImpl implements IWorkoutTrackerService {
 	
+	/** The workout tracker dao. */
 	@Autowired
 	private WorkoutTrackerDao workoutTrackerDao;
 	
+	/* (non-Javadoc)
+	 * @see com.tracker.intf.IWorkoutTrackerService#getWorkoutTrackerData()
+	 */
 	public WorkoutTrackerModel getWorkoutTrackerData() throws BusinessException {
 		WorkoutTrackerModel workoutTrackerModel = new WorkoutTrackerModel();
 		long dailyTimeDuration;
@@ -33,13 +39,11 @@ public class WorkoutTrackerServiceImpl implements IWorkoutTrackerService {
 		long monthlyTimeDuration;
 		Integer monthlyTimeDurationInMinutes = 0;
 		String currentDate = CommonUtil.formatCurrentDateToString(new Date());
-		System.out.println("currentDate: " + currentDate);
 		List<WorkoutActiveEntity> currentDayWorkouts = workoutTrackerDao.fetchWorkoutTrackerData(currentDate);
 		for(WorkoutActiveEntity workoutActivity: currentDayWorkouts) {
 			dailyTimeDuration= workoutActivity.getEndTime().getTime() - workoutActivity.getStartTime().getTime();
 			dailyTimeDurationInMinutes = (int) (dailyTimeDurationInMinutes + TimeUnit.MILLISECONDS.toMinutes(dailyTimeDuration));		
-		}
-		System.out.println("Daily workout time : "+ dailyTimeDurationInMinutes);	
+		}	
 		workoutTrackerModel.setWorkoutTimeOfDay(dailyTimeDurationInMinutes);
 		
 		List<WorkoutCollectionEntity> currentWeeksWorkouts = workoutTrackerDao.fetchCurrentWeekWorkouts();
@@ -47,16 +51,12 @@ public class WorkoutTrackerServiceImpl implements IWorkoutTrackerService {
 		workoutTrackerModel.setWeeklyWorkouts(weeklyWorkouts);
 		for(WorkoutCollectionEntity weekWorkout: currentWeeksWorkouts) {
 			WorkoutActiveEntity workoutActiveEntity = weekWorkout.getWorkoutActiveEntity();
-			System.out.println("*****************************");
-			System.out.println("Current week Workout : " + weekWorkout.toString());
-			System.out.println("*****************************");
 			if(workoutActiveEntity != null) {
 				weeklyTimeDuration = workoutActiveEntity.getEndTime().getTime() - workoutActiveEntity.getStartTime().getTime();
 				weeklyTimeDurationInMinutes = (int) (weeklyTimeDurationInMinutes + TimeUnit.MILLISECONDS.toMinutes(weeklyTimeDuration));
 			}
 			
-		}
-		System.out.println("Weekly workout time : "+ weeklyTimeDurationInMinutes);	
+		}	
 		workoutTrackerModel.setWorkoutTimeOfWeek(weeklyTimeDurationInMinutes);
 		
 		
@@ -65,33 +65,28 @@ public class WorkoutTrackerServiceImpl implements IWorkoutTrackerService {
 		workoutTrackerModel.setMonthlyWorkouts(monthlyWorkouts);
 		for(WorkoutCollectionEntity monthlyWorkout: currentMonthWorkouts) {
 			WorkoutActiveEntity workoutActiveEntity = monthlyWorkout.getWorkoutActiveEntity();
-			System.out.println("*****************************");
-			System.out.println("Current month Workout : " + monthlyWorkout.toString());
-			System.out.println("*****************************");
 			if(workoutActiveEntity != null) {
 				monthlyTimeDuration = workoutActiveEntity.getEndTime().getTime() - workoutActiveEntity.getStartTime().getTime();
 				monthlyTimeDurationInMinutes = (int) (monthlyTimeDurationInMinutes + TimeUnit.MILLISECONDS.toMinutes(monthlyTimeDuration));
 			}			
 		}
-		System.out.println("Monthly workout time : "+ monthlyTimeDurationInMinutes);
-		workoutTrackerModel.setWorkoutTimeOfMonth(monthlyTimeDurationInMinutes);
-		
-		
+		workoutTrackerModel.setWorkoutTimeOfMonth(monthlyTimeDurationInMinutes);		
 		List<WorkoutCollectionEntity> currentYearWorkouts = workoutTrackerDao.fetchCurrentYearWorkouts();
 		List<AddWorkoutModel> yearlyWorkouts = mapEntityToWorkoutModel(currentYearWorkouts);
-		workoutTrackerModel.setYearlyWorkouts(yearlyWorkouts);
-		for(WorkoutCollectionEntity yearlyWorkout : currentYearWorkouts) {
-			System.out.println("*****************************");
-			System.out.println("Current Year Workout : " + yearlyWorkout.toString());
-			System.out.println("*****************************");
-		}		
-		
+		workoutTrackerModel.setYearlyWorkouts(yearlyWorkouts);		
 		return workoutTrackerModel;
 	}
 	
 	
 	
-	 private List<AddWorkoutModel> mapEntityToWorkoutModel(List<WorkoutCollectionEntity> workoutEntity) throws BusinessException {
+	 /**
+ 	 * Map entity to workout model.
+ 	 *
+ 	 * @param workoutEntity the workout entity
+ 	 * @return the list
+ 	 * @throws BusinessException the business exception
+ 	 */
+ 	private List<AddWorkoutModel> mapEntityToWorkoutModel(List<WorkoutCollectionEntity> workoutEntity) throws BusinessException {
 		 List<AddWorkoutModel> workoutsList = new ArrayList<AddWorkoutModel>();
 		 AddWorkoutModel addWorkoutModel = null;
 		 for(WorkoutCollectionEntity entity: workoutEntity) {
