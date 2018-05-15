@@ -29,6 +29,9 @@ public class CategoryServiceImpl implements ICategoryService{
 	public String addCategory(CategoryModel categoryModel) {
 		CategoryEntity categoryEntity = new CategoryEntity();
 		categoryEntity.setCategoryName(categoryModel.getCategoryName());
+		if(categoryModel.getCategoryId()!= null) {
+			categoryEntity.setCategoryId(Integer.parseInt(categoryModel.getCategoryId()));
+		}
 		workoutDao.addCategory(categoryEntity);
 		return CommonConstants.SUCCESS_RESPONSE;
 		
@@ -44,7 +47,7 @@ public class CategoryServiceImpl implements ICategoryService{
 		List<CategoryModel> categoryModelList = new ArrayList<CategoryModel>();
 		for(CategoryEntity category : categoryList) {
 			categoryModel = new CategoryModel();
-			categoryModel.setCategoryId(Integer.toString(category.getCategory_id()));
+			categoryModel.setCategoryId(Integer.toString(category.getCategoryId()));
 			categoryModel.setCategoryName(category.getCategoryName());
 			categoryModelList.add(categoryModel);
 		}

@@ -16,8 +16,9 @@ public class CategoryEntity {
 	
 	    /** The category id. */
     	@Id
+    	@Column(name="category_id")
 	    @GeneratedValue(strategy=GenerationType.AUTO)
-		public int  category_id;
+		public int  categoryId;
 	    
 	    /** The category name. */
     	@Column(name="category_name")
@@ -42,31 +43,19 @@ public class CategoryEntity {
 			this.categoryName = categoryName;
 		}
 
-		/**
-		 * Gets the category id.
-		 *
-		 * @return the category id
-		 */
-		public int getCategory_id() {
-			return category_id;
+				
+		public int getCategoryId() {
+			return categoryId;
 		}
 
-		/**
-		 * Sets the category id.
-		 *
-		 * @param category_id the new category id
-		 */
-		public void setCategory_id(int category_id) {
-			this.category_id = category_id;
+		public void setCategoryId(int categoryId) {
+			this.categoryId = categoryId;
 		}
 
-		/* (non-Javadoc)
-		 * @see java.lang.Object#toString()
-		 */
 		@Override
 		public String toString() {
-			return "CategoryEntity [category_id=" + category_id + ", categoryName=" + categoryName + "]";
+			return "CategoryEntity [categoryId=" + categoryId + ", categoryName=" + categoryName + "]";
 		}
-			    
 
+		
 }

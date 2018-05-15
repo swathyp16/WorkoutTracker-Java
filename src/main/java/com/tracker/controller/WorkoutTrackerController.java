@@ -14,6 +14,7 @@ import com.tracker.service.WorkoutTrackerServiceImpl;
 /**
  * The Class WorkoutTrackerController.
  */
+@CrossOrigin
 @RestController
 public class WorkoutTrackerController {
 	
@@ -27,7 +28,6 @@ public class WorkoutTrackerController {
 	 * @return the workout tracker data
 	 * @throws BusinessException the business exception
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/workoutTracker",method=RequestMethod.GET)
 	public WorkoutTrackerModel getWorkoutTrackerData() throws BusinessException {
 		WorkoutTrackerModel workoutTrackerModel = workoutTrackerService.getWorkoutTrackerData();

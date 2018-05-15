@@ -33,8 +33,29 @@ public class AddWorkoutModel {
 	public String endTime;
 	
 	/** The start workout flag. */
-	public boolean startWorkoutFlag;	
+	public boolean startWorkoutFlag;
 	
+	/** The category name. */
+	public String categoryName;
+	
+
+	/**
+	 * Gets the category name.
+	 *
+	 * @return the category name
+	 */
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	/**
+	 * Sets the category name.
+	 *
+	 * @param categoryName the new category name
+	 */
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 
 	/**
 	 * Checks if is start workout flag.

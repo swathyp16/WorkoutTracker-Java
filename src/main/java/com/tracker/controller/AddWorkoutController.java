@@ -16,6 +16,7 @@ import com.tracker.service.WorkoutServiceImpl;
 /**
  * The Class AddWorkoutController.
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/createWorkout")
 public class AddWorkoutController {
@@ -31,7 +32,6 @@ public class AddWorkoutController {
 	 * @return the string
 	 * @throws BusinessException the business exception
 	 */
-	@CrossOrigin
 	@RequestMapping(value="/all",method=RequestMethod.POST)
 	public String createWorkout(@RequestBody AddWorkoutModel addWorkoutModel) throws BusinessException {
 		String responseString = null;		

@@ -18,6 +18,7 @@ import com.tracker.service.WorkoutServiceImpl;
 /**
  * The Class ViewAllWorkoutController.
  */
+@CrossOrigin
 @RestController
 public class ViewAllWorkoutController {
 
@@ -30,7 +31,6 @@ public class ViewAllWorkoutController {
 	 *
 	 * @return the list
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/viewAllWorkout",method=RequestMethod.GET)
 	public List<AddWorkoutModel> viewAllWorkout() {
 		List<AddWorkoutModel> workoutsList =  workoutService.viewAllWorkouts();
@@ -45,7 +45,6 @@ public class ViewAllWorkoutController {
 	 * @return the string
 	 * @throws BusinessException the business exception
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/deleteWorkout",method=RequestMethod.POST)
 	public String deleteCategory(@RequestBody AddWorkoutModel workoutModel) throws BusinessException {
 		String respStr = null;
@@ -60,7 +59,6 @@ public class ViewAllWorkoutController {
 	 * @return the list
 	 * @throws BusinessException the business exception
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/editWorkout/{workoutId}",method=RequestMethod.GET)
 	public List<AddWorkoutModel> editWorkout(@PathVariable String workoutId) throws BusinessException {
 		List<AddWorkoutModel> editModel = new ArrayList<AddWorkoutModel>();
@@ -75,7 +73,6 @@ public class ViewAllWorkoutController {
 	 * @return the string
 	 * @throws BusinessException the business exception
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/startWorkout",method=RequestMethod.POST)
 	public String startWorkout(@RequestBody AddWorkoutModel startWorkoutModel)throws BusinessException {
 		String respStr = workoutService.startWorkout(startWorkoutModel);

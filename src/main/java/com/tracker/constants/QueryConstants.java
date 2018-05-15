@@ -28,5 +28,6 @@ public class QueryConstants {
 	
 	/** The Constant FETCH_CURRENT_YEAR_WORKOUTS. */
 	public static final String FETCH_CURRENT_YEAR_WORKOUTS = "SELECT A FROM WorkoutCollectionEntity A WHERE YEAR(A.workoutActiveEntity.startDate) = ?1  and A.workoutActiveEntity.status= 1";
-	
+
+	public static final String FETCH_CATEGORY = "select A from CategoryEntity A where A.categoryId = ?1";
 }

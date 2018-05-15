@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.tracker.Exception.BusinessException;
 import com.tracker.constants.CommonConstants;
 import com.tracker.dao.WorkoutDao;
+import com.tracker.entity.CategoryEntity;
 import com.tracker.entity.WorkoutActiveEntity;
 import com.tracker.entity.WorkoutCollectionEntity;
 import com.tracker.intf.IWorkoutService;
@@ -92,9 +93,11 @@ public class WorkoutServiceImpl implements IWorkoutService{
 			addWorkoutModel.setWorkoutNote(editData.getWorkoutNote());
 			addWorkoutModel.setCaloriesBurnt(Float.toString(editData.getCaloriesBurnt()));
 			addWorkoutModel.setCategoryId(Integer.toString(editData.getCategoryId()));
+			fetchCategory(editData.getCategoryId(),addWorkoutModel);
 			fetchStartWorkoutDetails(workoutId, addWorkoutModel);
 			editWorkoutDetails.add(addWorkoutModel);
 		}
+		
 		return editWorkoutDetails;
 	}
 	
@@ -115,6 +118,11 @@ public class WorkoutServiceImpl implements IWorkoutService{
 				addWorkoutModel.setStartTime(workoutActiveEntity.getStartTime().toString());
 			}		
 		}
+	}
+	
+	private void fetchCategory(int categoryId,AddWorkoutModel addWorkoutModel) {
+		CategoryEntity categoryEntity = workoutDao.findByCategoryId(categoryId);
+		addWorkoutModel.setCategoryName(categoryEntity.getCategoryName());
 	}
 	
 	/* (non-Javadoc)

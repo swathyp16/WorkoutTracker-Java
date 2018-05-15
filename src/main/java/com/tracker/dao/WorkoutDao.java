@@ -127,4 +127,15 @@ public class WorkoutDao {
 		return workoutActiveEntity;
 	}
 	
+	/**
+	 * Find by category id.
+	 *
+	 * @param categoryId the category id
+	 * @return the category entity
+	 */
+	public CategoryEntity findByCategoryId(int categoryId) {
+		CategoryEntity categoryEntity = categoryRepository.findByCategoryId(categoryId);
+		return categoryEntity;		
+	}
+	
 }

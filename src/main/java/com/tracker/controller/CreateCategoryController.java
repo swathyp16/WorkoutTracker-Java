@@ -18,6 +18,7 @@ import com.tracker.service.CategoryServiceImpl;
 /**
  * The Class CreateCategoryController.
  */
+@CrossOrigin
 @RestController
 public class CreateCategoryController {
 
@@ -32,7 +33,6 @@ public class CreateCategoryController {
 	 * @return the string
 	 * @throws BusinessException the business exception
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/createCategory",method=RequestMethod.POST)
 	public String createCategory(@RequestBody CategoryModel categoryModel) throws BusinessException {
 		String responseString = null;
@@ -51,7 +51,6 @@ public class CreateCategoryController {
 	 * @return the list
 	 * @throws BusinessException the business exception
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/viewAllCategory",method=RequestMethod.GET)
 	public List<CategoryModel> viewAllCategories() throws BusinessException {
 		List<CategoryModel> categoryList = new ArrayList<CategoryModel>() ;
@@ -71,7 +70,6 @@ public class CreateCategoryController {
 	 * @return the string
 	 * @throws BusinessException the business exception
 	 */
-	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value="/deleteCategory",method=RequestMethod.POST)
 	public String deleteCategory(@RequestBody CategoryModel categoryModel) throws BusinessException {
 		String respStr = null;
